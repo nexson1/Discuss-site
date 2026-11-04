@@ -1,3 +1,4 @@
+bleach==6.4.0
 blinker==1.9.0
 Bootstrap-Flask==2.6.0
 click==8.5.0
@@ -20,5 +21,6 @@ python-dotenv==1.2.4
 SQLAlchemy==2.1.7
 typing_extensions==4.16.0
 tzdata==2026.6
+webencodings==0.6.1
 Werkzeug==3.1.9
 WTForms==3.3.2
