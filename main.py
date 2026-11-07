@@ -1,4 +1,7 @@
 from datetime import date, datetime
+import os
+from dotenv import load_dotenv
+import tempfile
 
 from dominate.tags import comment
 from flask import Flask, abort, render_template, redirect, url_for, flash
@@ -16,11 +19,10 @@ from werkzeug.security import generate_password_hash, check_password_hash
 # Import your forms from the forms.py
 from form import DiscussForm, DiscussRegistrationForm, DiscussLoginForm , DiscussCommentForm
 
-MY_EMAIL = 'nex399582@gmail.com'
-MY_PASSWORD = 'chbablvgcuvsfaen'
 
+load_dotenv()
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'nexitgod'
+app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
 Bootstrap5(app)
 ckeditor = CKEditor(app)
 
@@ -53,11 +55,13 @@ def admin_only(function):
 class Base(DeclarativeBase):
     pass
 
+database_url = os.getenv("DATABASE_URI")
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///discuss-site.db'
+
+app.config["SQLALCHEMY_DATABASE_URI"] = database_url
+
 db = SQLAlchemy(model_class=Base)
 db.init_app(app)
-
 
 # CONFIGURE TABLE
 class DiscussPost(db.Model):
@@ -78,7 +82,7 @@ class Users(UserMixin, db.Model):
     __tablename__ = "users"
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     email: Mapped[str] = mapped_column(String(100), unique=True)
-    password: Mapped[str] = mapped_column(String(100))
+    password: Mapped[str] = mapped_column(String(255))
     surname: Mapped[str] = mapped_column(String(100))
     firstname: Mapped[str] = mapped_column(String(100))
     username: Mapped[str] = mapped_column(String(100))
@@ -92,13 +96,13 @@ class Comments(db.Model):
     comment_author = relationship("Users", back_populates="comments")
 
     # ***************Child Relationship*************#
-    post_id: Mapped[str] = mapped_column(Integer, db.ForeignKey("discuss_posts.id"))
+    post_id: Mapped[int] = mapped_column(Integer, db.ForeignKey("discuss_posts.id"))
     parent_post = relationship("DiscussPost", back_populates="comments")
     text: Mapped[str] = mapped_column(Text, nullable=False)
 
 
-with app.app_context():
-    db.create_all()
+# with app.app_context():
+#     db.create_all()
 
 
 @app.route('/')
@@ -226,4 +230,4 @@ def logout():
 
 
 if __name__ == "__main__":
-    app.run(debug=True, port=5000)
+    app.run(debug=False, port=5000)
