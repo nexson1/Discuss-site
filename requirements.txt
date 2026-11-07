@@ -3,6 +3,7 @@ Bootstrap-Flask==2.6.0
 certifi==2026.7.22
 charset-normalizer==3.5.1
 click==8.5.0
+dominate==3.1.0
 dotenv==0.9.9
 Flask==2.3.2
 Flask-SQLAlchemy==3.1.1
