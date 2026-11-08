@@ -1,9 +1,9 @@
 from datetime import date, datetime
 import os
 from dotenv import load_dotenv
+import tempfile
 
-
-
+from dominate.tags import comment
 from flask import Flask, abort, render_template, redirect, url_for, flash
 from flask_bootstrap import Bootstrap5
 from flask_ckeditor import CKEditor
@@ -14,7 +14,6 @@ from sqlalchemy.orm import relationship, DeclarativeBase, Mapped, mapped_column
 from sqlalchemy import Integer, String, Text, ForeignKey
 from functools import wraps
 
-from sqlalchemy.testing.pickleable import User
 from werkzeug.security import generate_password_hash, check_password_hash
 # Import your forms from the forms.py
 from form import DiscussForm, DiscussRegistrationForm, DiscussLoginForm , DiscussCommentForm
@@ -101,8 +100,8 @@ class Comments(db.Model):
     text: Mapped[str] = mapped_column(Text, nullable=False)
 
 
-# with app.app_context():
-#     db.create_all()
+with app.app_context():
+    db.create_all()
 
 
 @app.route('/')
@@ -185,6 +184,7 @@ def show_discuss(discuss_id):
 
 
 @app.route('/discuss-post', methods=['GET', 'POST'])
+@login_required
 def discuss_post():
     discuss_form = DiscussForm()
     if discuss_form.validate_on_submit():
