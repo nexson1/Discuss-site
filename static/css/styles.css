@@ -10917,3 +10917,11 @@ header.masthead .post-heading .meta a {
 #mainNav .navbar-toggler-icon {
     filter: invert(1);
 }
+#mainNav .navbar-toggler-icon {
+    filter: brightness(0);
+}
+
+#mainNav .navbar-toggler {
+    border: 1px solid #212529;
+    background-color: #ffffff;
+}
