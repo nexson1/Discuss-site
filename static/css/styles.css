@@ -169,6 +169,48 @@ p {
   margin-bottom: 1rem;
 }
 
+/* Landing page masthead */
+.masthead {
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    min-height: 350px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.site-heading {
+    width: 100%;
+    text-align: center;
+}
+
+.site-heading h1 {
+    margin: 0;
+    font-size: clamp(2.5rem, 7vw, 5rem);
+}
+
+/* Mobile adjustments */
+@media (max-width: 576px) {
+    .masthead {
+        min-height: 250px;
+        background-position: center center;
+        padding: 40px 15px;
+    }
+
+    .site-heading h1 {
+        font-size: 2.5rem;
+    }
+
+    .lead {
+        font-size: 1rem;
+        padding: 0 10px;
+    }
+}
+
+
 abbr[title] {
   -webkit-text-decoration: underline dotted;
           text-decoration: underline dotted;

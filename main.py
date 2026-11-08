@@ -1,9 +1,9 @@
 from datetime import date, datetime
 import os
 from dotenv import load_dotenv
-import tempfile
 
-from dominate.tags import comment
+
+
 from flask import Flask, abort, render_template, redirect, url_for, flash
 from flask_bootstrap import Bootstrap5
 from flask_ckeditor import CKEditor
